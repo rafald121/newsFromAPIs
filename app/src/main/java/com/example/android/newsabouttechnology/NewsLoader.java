@@ -28,6 +28,10 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
 
     @Override
     public List<News> loadInBackground() {
-        return null;
+        if(mUrl == null){
+            return null;
+        }
+//        TODO: fetch from internet: \/
+//        List <News> newsList =
     }
 }
