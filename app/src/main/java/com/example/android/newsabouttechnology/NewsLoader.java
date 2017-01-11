@@ -31,7 +31,7 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
         if(mUrl == null){
             return null;
         }
-//        TODO: fetch from internet: \/
+//        TODO: fetch from internet:
 //        List <News> newsList =
     }
 }
