@@ -1,6 +1,8 @@
 package com.example.android.newsabouttechnology;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,8 +13,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -22,7 +30,7 @@ import java.util.List;
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> {
 
     private static final String TAG = "NewsAdapter";
-    
+    View recyclerItem;
     private List<News> newsList;
 
     public NewsAdapter(List<News> newsList) {
@@ -34,7 +42,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.i(TAG, "onCreateViewHolder: START");
-        View recyclerItem = LayoutInflater.from(parent.getContext()).inflate(R.layout
+        recyclerItem = LayoutInflater.from(parent.getContext()).inflate(R.layout
                 .recycler_item, parent, false);
         Log.i(TAG, "onCreateViewHolder: END");
         return new MyViewHolder(recyclerItem);
@@ -51,6 +59,18 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         holder.author.setText(news.getAuthor());
         //TODO sprobować zmienić na publishedDate w News.java
         holder.publishedDate.setText(news.getPublishedAt());
+//
+//        Picasso.with(context).load(news.getUrlImage()).into(holder.imageView);
+
+//        try {
+//            Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(news.getUrlImage()).getContent());
+//            holder.imageView.setImageBitmap(bitmap);
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
 
         Log.i(TAG, "onBindViewHolder: END");
     }
