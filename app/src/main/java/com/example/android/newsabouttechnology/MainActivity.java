@@ -22,8 +22,7 @@ import static android.R.id.list;
 public class MainActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<News>> {
     private static final String TAG = "MainActivity";
-    private static final String URL= "https://newsapi" +
-            ".org/v1/articles?source=engadget&sortBy=top&apiKey=a25a3dfb39d94d448c334519daf57be2";
+    private static final String URL= "https://newsapi.org/v1/articles?source=national-geographic&sortBy=top&apiKey=a25a3dfb39d94d448c334519daf57be2";
     private static final int EARTHQUAKE_LOADER_ID = 1;
 
     RecyclerView recyclerView;

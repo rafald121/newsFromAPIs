@@ -23,6 +23,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+import static java.lang.System.load;
+
 /**
  * Created by Rafaello on 2017-01-12.
  */
@@ -57,19 +59,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         
         holder.title.setText(news.getTitle());
         holder.author.setText(news.getAuthor());
-        //TODO sprobować zmienić na publishedDate w News.java
         holder.publishedDate.setText(news.getPublishedAt());
-//
-//        Picasso.with(context).load(news.getUrlImage()).into(holder.imageView);
 
-//        try {
-//            Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(news.getUrlImage()).getContent());
-//            holder.imageView.setImageBitmap(bitmap);
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+//        Log.i(TAG, "onBindViewHolder: MINE URL:"+news.getUrlImage());
+
+        Picasso.with(recyclerItem.getContext()).load(news.getUrlImage()).into(holder.imageView);
 
 
         Log.i(TAG, "onBindViewHolder: END");
