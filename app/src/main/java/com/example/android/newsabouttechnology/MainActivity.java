@@ -1,42 +1,77 @@
 package com.example.android.newsabouttechnology;
 
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Loader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Earthquake>> {
+import static android.R.id.list;
 
-    String link = "https://newsapi" +
+public class MainActivity extends AppCompatActivity
+        implements LoaderManager.LoaderCallbacks<List<News>> {
+    private static final String TAG = "MainActivity";
+    private static final String URL= "https://newsapi" +
             ".org/v1/articles?source=engadget&sortBy=top&apiKey=a25a3dfb39d94d448c334519daf57be2";
+    private static final int EARTHQUAKE_LOADER_ID = 1;
 
+    List<News> hao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(TAG, "onCreate: START");
+
         setContentView(R.layout.activity_main);
 
-        NewsLoader newsLoader = new NewsLoader(this, link);
+        
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
 
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
+        if (networkInfo != null && networkInfo.isConnected()) {
+            LoaderManager loaderManager = getLoaderManager();
+            loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
+
+        } else {
+
+        }
+        Log.i(TAG, "onCreate: drukujem");
+
+        System.out.println(hao.toString());
+
+        Log.i(TAG, "onCreate: END");
 
     }
 
 
     @Override
-    public Loader<List<Earthquake>> onCreateLoader(int id, Bundle args) {
-        return null;
+    public Loader<List<News>> onCreateLoader(int id, Bundle args) {
+        Log.i(TAG, "onCreateLoader: START");
+
+        NewsLoader newsloader = new NewsLoader(this,URL);
+        hao  = newsloader.getListOfNews();
+        Log.i(TAG, "onCreateLoader: list: " + list);
+        Log.i(TAG, "onCreateLoader: END");
+
+        return newsloader;
     }
 
     @Override
-    public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> data) {
+    public void onLoadFinished(Loader<List<News>> loader, List<News> data) {
+        Log.i(TAG, "onLoadFinished: START");
 
     }
 
     @Override
-    public void onLoaderReset(Loader<List<Earthquake>> loader) {
+    public void onLoaderReset(Loader<List<News>> loader) {
 
     }
 }

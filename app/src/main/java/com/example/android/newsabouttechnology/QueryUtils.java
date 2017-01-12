@@ -25,6 +25,7 @@ import java.util.List;
  */
 
 public final class QueryUtils {
+
     private static final String TAG = QueryUtils.class.getSimpleName();
 
 

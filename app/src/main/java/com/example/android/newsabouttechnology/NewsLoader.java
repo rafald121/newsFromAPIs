@@ -14,7 +14,7 @@ import java.util.List;
 public class NewsLoader extends AsyncTaskLoader<List<News>> {
 
     private static final String TAG = "NewsLoader";
-
+    public List<News> listOfNews;
     private String mUrl;
 
     public NewsLoader(Context context, String url) {
@@ -22,13 +22,10 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
         mUrl=url;
     }
 
-//    TODO co zmienia forceLoad \/
     @Override
     protected void onStartLoading() {
         forceLoad();
     }
-
-
 
     @Override
     public List<News> loadInBackground() {
@@ -37,11 +34,19 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
         if(mUrl == null){
             return null;
         }
-//        TODO: fetch from internet:
-        List <News> newsList = QueryUtils.fetchDataFromPage(mUrl);
 
+        List<News> listOfNews = QueryUtils.fetchDataFromPage(mUrl);
 
         Log.i(TAG, "loadInBackground: END");
-        return newsList;
+        return listOfNews;
+
+    }
+
+    public List<News> getListOfNews() {
+        return listOfNews;
+    }
+
+    public void setListOfNews(List<News> listOfNews) {
+        this.listOfNews = listOfNews;
     }
 }
