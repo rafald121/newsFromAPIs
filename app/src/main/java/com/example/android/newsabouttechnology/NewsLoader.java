@@ -3,6 +3,7 @@ package com.example.android.newsabouttechnology;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
 public class NewsLoader extends AsyncTaskLoader<List<News>> {
 
     private static final String TAG = "NewsLoader";
+
     private String mUrl;
 
     public NewsLoader(Context context, String url) {
@@ -26,12 +28,20 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
         forceLoad();
     }
 
+
+
     @Override
     public List<News> loadInBackground() {
+        Log.i(TAG, "loadInBackground: START");
+
         if(mUrl == null){
             return null;
         }
 //        TODO: fetch from internet:
-//        List <News> newsList =
+        List <News> newsList = QueryUtils.fetchDataFromPage(mUrl);
+
+
+        Log.i(TAG, "loadInBackground: END");
+        return newsList;
     }
 }

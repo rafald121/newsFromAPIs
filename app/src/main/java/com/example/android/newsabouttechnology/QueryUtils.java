@@ -1,6 +1,11 @@
 package com.example.android.newsabouttechnology;
 
+import android.text.TextUtils;
 import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOError;
@@ -12,6 +17,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.sql.Struct;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,20 +78,23 @@ public final class QueryUtils {
 
         HttpURLConnection urlConnection = null;
         InputStream inputStream = null;
-
+        Log.i(TAG, "makeHttpRequest: przed try");
         try{
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setReadTimeout(10000 /* milliseconds */);
             urlConnection.setConnectTimeout(15000 /* milliseconds */);
             urlConnection.setRequestMethod("GET");
+            Log.i(TAG, "makeHttpRequest: before connect");
             urlConnection.connect();
-
+            Log.i(TAG, "makeHttpRequest: if code");
             if(urlConnection.getResponseCode() == 200){
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else{
                 Log.e(TAG, "makeHttpRequest: error while getting input stream. error code: "+ urlConnection.getResponseCode());
             }
+
+            Log.i(TAG, "makeHttpRequest: przed catch");
         } catch (IOException e) {
             e.printStackTrace();
             Log.e(TAG, "makeHttpRequest: Problem while retrieving the JSON from your URL", e);
@@ -121,9 +130,42 @@ public final class QueryUtils {
 
 
     private static List<News> extractDataFromJson(String jsonResponse) {
-        List<News> list = null;
+        Log.i(TAG, "extractDataFromJson: START");
+        if(TextUtils.isEmpty(jsonResponse)){
+            return null;
+        }
+
+        List<News> list = new ArrayList<>();
+
+        try {
+            JSONObject baseJsonResponse = new JSONObject(jsonResponse);
+//        TODO ROZKMINIC Z ROZNYMI SOURCAMI :)
+            String jsonSource = baseJsonResponse.getString("source");
+
+            JSONArray articlesArray = baseJsonResponse.getJSONArray("articles");
+
+            for( int i = 0 ; i < articlesArray.length() ; i ++ ){
+                JSONObject jsonArticle = articlesArray.getJSONObject(i);
+
+                String author = jsonArticle.getString("author");
+                String title = jsonArticle.getString("title");
+                String description = jsonArticle.getString("description");
+                String url = jsonArticle.getString("url");
+                String urlToImage = jsonArticle.getString("urlToImage");
+                String publishedAt = jsonArticle.getString("publishedAt");
+
+                News news = new News(author,title,description,url,urlToImage,publishedAt);
+
+                Log.i(TAG, "added: " + news.toString());
+
+                list.add(news);
+            }
 
 
+        } catch (JSONException e) {
+            Log.e(TAG, "extractDataFromJson: error while parsing jsonData", e);
+        }
+        Log.i(TAG, "extractDataFromJson: END");
         return list;
     }
 }

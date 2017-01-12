@@ -6,14 +6,17 @@ package com.example.android.newsabouttechnology;
 
 public class News {
 
-    String author, title, description, url, urlImage;
+    String author, title, description, url, urlImage, publishedAt;
 
-    public News(String author, String title, String description, String url, String urlImage) {
+    public News(String author, String title, String description, String url, String urlImage,
+                String publishedAt) {
         this.author = author;
         this.title = title;
         this.description = description;
         this.url = url;
         this.urlImage = urlImage;
+        this.publishedAt = publishedAt;
+
     }
 
     public String getAuthor() {
@@ -54,6 +57,14 @@ public class News {
 
     public void setUrlImage(String urlImage) {
         this.urlImage = urlImage;
+    }
+
+    public String getPublishedAt() {
+        return publishedAt;
+    }
+
+    public void setPublishedAt(String publishedAt) {
+        this.publishedAt = publishedAt;
     }
 
     @Override
