@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -36,7 +37,9 @@ public class MainActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_main);
 
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
 
         if(newsList!=null) {
             newsAdapter = new NewsAdapter(newsList);
@@ -91,7 +94,21 @@ public class MainActivity extends AppCompatActivity
         else
             Log.e(TAG, "onLoadFinished: HAO IS NULL" );
 
+        Log.i(TAG, "onLoadFinished: lista do adaptera");
 
+
+
+        newsAdapter = new NewsAdapter(newsList);
+
+        recyclerView.setHasFixedSize(true);//czy bedzie miala zmienny rozmiar podczas dzialania apki
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+
+        recyclerView.setAdapter(newsAdapter);
+
+
+        Log.i(TAG, "onLoadFinished: po liscie do adaptera");
+        newsAdapter.notifyDataSetChanged(); 
         Log.i(TAG, "onLoadFinished: END");
     }
 

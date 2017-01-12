@@ -6,7 +6,7 @@ package com.example.android.newsabouttechnology;
 
 public class News {
 
-    String author, title, description, url, urlImage, publishedAt;
+    private String author, title, description, url, urlImage, publishedAt;
 
     public News(String author, String title, String description, String url, String urlImage,
                 String publishedAt) {
