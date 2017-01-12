@@ -49,7 +49,17 @@ public class MainActivity extends AppCompatActivity
             Log.e(TAG, "onCreate: ŁADUJE INFO" );
         }
 
-
+        button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(newsList != null)
+                    Log.i(TAG, "onClick: po kliknieciu pokazuje liste: " + newsList.toString());
+                else
+                    Log.i(TAG, "onClick: LISTA PUSTA");
+            }
+        });
+        
         Log.i(TAG, "onCreate: END");
 
     }
@@ -72,14 +82,17 @@ public class MainActivity extends AppCompatActivity
     public void onLoadFinished(Loader<List<News>> loader, List<News> data) {
         Log.i(TAG, "onLoadFinished: START");
 
-        if(newsList!=null)
+
+
+        if(data!=null) {
             newsList = data;
+            Log.i(TAG, "onLoadFinished: listaZNewsami: " + newsList.toString());
+        }
         else
             Log.e(TAG, "onLoadFinished: HAO IS NULL" );
 
-        Log.i(TAG, "onLoadFinished: listaZNewsami: " + newsList.toString());
 
-
+        Log.i(TAG, "onLoadFinished: END");
     }
 
     @Override

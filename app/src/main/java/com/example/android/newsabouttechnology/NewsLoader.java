@@ -42,11 +42,4 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
 
     }
 
-    public List<News> getListOfNews() {
-        return listOfNews;
-    }
-
-    public void setListOfNews(List<News> listOfNews) {
-        this.listOfNews = listOfNews;
-    }
 }
