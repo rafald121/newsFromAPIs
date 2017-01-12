@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,8 +25,8 @@ public class MainActivity extends AppCompatActivity
             ".org/v1/articles?source=engadget&sortBy=top&apiKey=a25a3dfb39d94d448c334519daf57be2";
     private static final int EARTHQUAKE_LOADER_ID = 1;
 
-    Button button;
-
+    RecyclerView recyclerView;
+    NewsAdapter newsAdapter;
     List<News> newsList;
 
     @Override
@@ -34,6 +35,16 @@ public class MainActivity extends AppCompatActivity
         Log.i(TAG, "onCreate: START");
 
         setContentView(R.layout.activity_main);
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+        if(newsList!=null) {
+            newsAdapter = new NewsAdapter(newsList);
+            Log.i(TAG, "onCreate: stworzono obiekt newsAdapter z listą, lista nie jest pusta");
+        } else {
+            Log.i(TAG, "onCreate: lista w adapterze jest pusta");
+        }
+    
 
 
         
@@ -49,17 +60,6 @@ public class MainActivity extends AppCompatActivity
             Log.e(TAG, "onCreate: ŁADUJE INFO" );
         }
 
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(newsList != null)
-                    Log.i(TAG, "onClick: po kliknieciu pokazuje liste: " + newsList.toString());
-                else
-                    Log.i(TAG, "onClick: LISTA PUSTA");
-            }
-        });
-        
         Log.i(TAG, "onCreate: END");
 
     }
