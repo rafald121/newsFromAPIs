@@ -30,7 +30,9 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginStart="8dp"
         app:layout_constraintLeft_toRightOf="@+id/recycler_view_image"
-        android:layout_height="35dp"/>
+        android:layout_height="35dp"
+        android:freezesText="false"
+        android:gravity="center_vertical"/>
 
     <TextView
         android:text="TextView"
@@ -43,7 +45,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginStart="8dp"
         app:layout_constraintLeft_toRightOf="@+id/recycler_view_image"
-        app:layout_constraintHorizontal_bias="0.11"/>
+        app:layout_constraintHorizontal_bias="0.12"/>
 
     <TextView
         android:text="TextView"
